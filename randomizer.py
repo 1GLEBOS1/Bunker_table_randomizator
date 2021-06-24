@@ -1,19 +1,26 @@
 import random
+from typing import Set, List, Any
+
+from generator import GeneratorBiologicalInformation
 
 # Using Cryptographically Secure Pseudo Random Number Generator
-CSPRNG = random.SystemRandom()
+RandGenerator = random.SystemRandom()
 
 
 class BunkerTable:
-    
+    """
+    This class creates a table of Bunker game
+    """
+
     __features = [i for i in range(0, 30)]
     __professions = [i for i in range(0, 50)]
     __features_on_table = [set(), set(), set(), set(), set(), set(), set(), set()]
     __table = [[], [], [], [], [], [], [], [], [], []]
 
-    def __init__(self, needed_features: list, all_features: list):
+    def __init__(self, needed_features: list, all_features: list, generator=GeneratorBiologicalInformation()):
         self.needed_features = needed_features
         self.all_features = all_features
+        self.generator = generator
 
     def table_generator(self):
         """
@@ -38,24 +45,44 @@ class BunkerTable:
         for i in range(8):
             if i == 1:
                 while len(self.__features_on_table[i]) < 10:
-                    item = CSPRNG.choice(self.__professions)
+                    item = RandGenerator.choice(self.__professions)
                     self.__features_on_table[i].add(item)
             else:
                 while len(self.__features_on_table[i]) < 10:
-                    item = CSPRNG.choice(self.__features)
+                    item = RandGenerator.choice(self.__features)
                     self.__features_on_table[i].add(item)
+
+    def __transition_data_to_lists(self):
+        # вносим данные в список, а затем
+        # item = RandGenerator.choice(list[x])
+        # self.__table.append(item)
+        # list.remove(item)
+        features = [[], [], [], [], [], [], [], []]
+        for i in range(len(features)):
+            for a in range(len(self.__table)):
+                item = self.__features_on_table[i].pop()
+                features[i].append(item)
+                self.__features_on_table[i].discard(item)
+        return features
 
     def __creating_characters(self):
         """
         This method creates characters from sets of features
         """
-        for i in range(10):
-            for a in range(8):
-                item = self.__features_on_table[a].pop()
-                self.__table[i].append(item)
-                self.__features_on_table[a].discard(item)
+        features = self.__transition_data_to_lists()
+        for i in range(8):
+            for a in reversed(range(10)):
+                try:
+                    item = RandGenerator.choice(features[i])
+                    self.__table[a].append(item)
+                    features[i].remove(item)
+                except IndexError:
+                    print('list index out of range')
 
-    def __restore_table(self):
+    def restore_table(self):
+        """
+        This method clears lists of characteristics
+        """
         self.__features_on_table = [set(), set(), set(), set(), set(), set(), set(), set()]
         self.__table = [[], [], [], [], [], [], [], [], [], []]
 
@@ -70,19 +97,21 @@ class BunkerTable:
         output = ''
         for i in range(10):
             character = ''
-            character += f'Игрок {i+1} ' \
+            character += f'Игрок {i + 1} ' \
                          f'Характеристики: \n'
             for a in range(8):
                 if a != 0:
-                    character += ', '
-                number_of_feature = int(table[i][a])
-                try:
-                    character += f'{features[a][number_of_feature]}'
-                except IndexError:
-                    print('list index out of range')
+                    character += '\n'
+                    try:
+                        number_of_feature = int(table[i][a])
+                        character += f'{features[a][number_of_feature]}'
+                    except IndexError:
+                        print('list index out of range')
+                else:
+                    character += self.generator.generate_biological_info()
             character += '\n\n'
             output += character
 
-        self.__restore_table()
+        self.restore_table()
 
         return output
