@@ -43,7 +43,7 @@ class GeneratorBiologicalInformation:
         """
         This method generates the hight informationfor character
         """
-        borders: list = RandGenerator.choice(self.Age)
+        borders: list = self.Height
         height: int = RandGenerator.randint(borders[0], borders[1])
         return height
 
@@ -75,7 +75,7 @@ class GeneratorBiologicalInformation:
         This method generates full physical information for character
         """
         info = ''
-        info += f'Вес: {(self.__generate_height())} кг'
+        info += f'Рост: {(self.__generate_height())} см'
         info += ', '
         info += 'Телосложение: ' + str(self.__genenerate_body_type())
         return info
