@@ -1,5 +1,5 @@
 from randomizer import BunkerTable
-from  generator import GeneratorBiologicalInformation
+from generator import GeneratorBiologicalInformation
 
 # This is a list of characteristics required to be able to win
 needed_features = [[], [], [], [], [], [], [], []]
@@ -8,7 +8,7 @@ needed_features = [[], [], [], [], [], [], [], []]
 all_features = [[],
 
                 ['Блогер', 'Плотник', 'Сторож', 'Нарколог', 'Священник', 'Кинолог', 'Экономист', 'Бухгалтер',
-                 'Аниматор', 'Музыкант', 'Пивовар', 'Ученый-химик', 'Инженер-электрик', 'Пекарь','Автомеханик',
+                 'Аниматор', 'Музыкант', 'Пивовар', 'Ученый-химик', 'Инженер-электрик', 'Пекарь', 'Автомеханик',
                  'Агроном', 'Акушер', 'Археолог', 'Астрофизик', 'Астроном', 'Балерина', 'Банкир', 'Батюшка',
                  'Биохимик', 'Бурильщик', 'Биолог', 'Биофизик', 'Венеролог', 'Ведущий мероприятий', 'Венеролог',
                  'Водолаз', 'Винодел', 'Психолог', 'Географ', 'Гид-переводчик', 'Гробовщик', 'Грузчик', 'Депутат',
@@ -45,24 +45,27 @@ all_features = [[],
                 ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18',
                  '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']]
 
-# Creating instanse of Generator
+# Creating instanse of Generator Biological Info
 Generator = GeneratorBiologicalInformation()
 
-# Creating instanse of Table
+# Creating instanse of Table Randomizator
 Table = BunkerTable(needed_features=needed_features, all_features=all_features, generator=Generator)
 
 count_of_tables = int(input('Количество столов: '))
 
-# Creating files with tables
+# Creating files with tables and BackTables
 for i in range(count_of_tables):
-    with open(f'Table_{i+1}.txt', 'w') as file:
+
+    # Creating Table
+    with open(f'/Users/sergeypolyakov/Desktop/Бункер/Table_{i+1}.txt', 'w') as file:
         Table.table_generator()
         file.write(Table.pretty_output())
-        print(f'Table generated')
+        print('Стол сгенерирован')
         file.close()
 
-    with open(f'BackTable_{i+1}.txt', 'w') as file:
+    # Creating BackTable
+    with open(f'/Users/sergeypolyakov/Desktop/Бункер/BackTable_{i+1}.txt', 'w') as file:
         Table.table_generator()
         file.write(Table.pretty_output())
-        print(f'Table generated')
+        print('Запасные характеристики сгенерированны')
         file.close()

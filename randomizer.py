@@ -1,6 +1,4 @@
 import random
-from typing import Set, List, Any
-
 from generator import GeneratorBiologicalInformation
 
 # Using Cryptographically Secure Pseudo Random Number Generator
@@ -12,8 +10,11 @@ class BunkerTable:
     This class creates a table of Bunker game
     """
 
+    # Lists with indexes of characteristics
     __features = [i for i in range(0, 30)]
     __professions = [i for i in range(0, 50)]
+
+    # Lists for work with characteristics
     __features_on_table = [set(), set(), set(), set(), set(), set(), set(), set()]
     __table = [[], [], [], [], [], [], [], [], [], []]
 
@@ -53,10 +54,9 @@ class BunkerTable:
                     self.__features_on_table[i].add(item)
 
     def __transition_data_to_lists(self):
-        # вносим данные в список, а затем
-        # item = RandGenerator.choice(list[x])
-        # self.__table.append(item)
-        # list.remove(item)
+        """
+        This method transforms characteristics frpm sets to lists
+        """
         features = [[], [], [], [], [], [], [], []]
         for i in range(len(features)):
             for a in range(len(self.__table)):
@@ -95,20 +95,24 @@ class BunkerTable:
         features = self.all_features
 
         output = ''
+
         for i in range(10):
+
             character = ''
-            character += f'Игрок {i + 1} ' \
-                         f'Характеристики: \n'
+            character += f'Игрок {i + 1} Характеристики: \n'
+
             for a in range(8):
+
                 if a != 0:
+
                     character += '\n'
-                    try:
-                        number_of_feature = int(table[i][a])
-                        character += f'{features[a][number_of_feature]}'
-                    except IndexError:
-                        print('list index out of range')
+
+                    number_of_feature = int(table[i][a])
+                    character += f'{features[a][number_of_feature]}'
+
                 else:
                     character += self.generator.generate_biological_info()
+
             character += '\n\n'
             output += character
 
