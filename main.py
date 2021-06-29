@@ -1,10 +1,6 @@
 from randomizer import BunkerTable
 from generator import GeneratorBiologicalInformation
 
-# This is a list of characteristics required to be able to win
-needed_features = [[], [], [], [], [], [], [], [], [0, 2, 15]]
-
-# This is a list of фдд characteristics in game
 all_features = [[],
 
                 ['Блогер', 'Плотник', 'Сторож', 'Нарколог', 'Священник', 'Кинолог', 'Экономист', 'Бухгалтер',
@@ -80,13 +76,35 @@ all_features = [[],
 # Creating instanse of Generator Biological Info
 Generator = GeneratorBiologicalInformation()
 
-# Creating instanse of Table Randomizator
-Table = BunkerTable(needed_features=needed_features, all_features=all_features, generator=Generator)
-
 count_of_tables = int(input('Количество столов: '))
 
 # Creating files with tables and BackTables
 for i in range(count_of_tables):
+
+    try:
+        count_of_gamers = int(input('Количество игроков: '))
+        if count_of_gamers > 30:
+            print('Слишком много игроков')
+            continue
+        elif count_of_gamers < 1:
+            print('Слишком мало игроков')
+            continue
+    except ValueError:
+        count_of_gamers = 10
+
+    needed_features = []
+    
+    for a in range(9):
+        items = str(input('Введите необходимые характеристики: '))
+        if items != '':
+            items = items.split(' ')
+            for b in range(len(items)):
+                items[b] = int(items[b])
+        needed_features.append(items)
+
+    # Creating instanse of Table Randomizator
+    Table = BunkerTable(needed_features=needed_features, all_features=all_features, generator=Generator,
+                        count_of_characters=count_of_gamers)
 
     # Creating Table
     with open(f'/Users/sergeypolyakov/Desktop/Бункер/Table_{i+1}.txt', 'w') as file:

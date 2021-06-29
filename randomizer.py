@@ -18,15 +18,18 @@ class BunkerTable:
     __features_on_table = [set(), set(), set(), set(), set(), set(), set(), set(), set()]
     __table = [[], [], [], [], [], [], [], [], [], []]
 
-    def __init__(self, needed_features: list, all_features: list, generator=GeneratorBiologicalInformation()):
+    def __init__(self, needed_features: list, all_features: list, generator=GeneratorBiologicalInformation(),
+                 count_of_characters: int = 10):
         self.needed_features = needed_features
         self.all_features = all_features
         self.generator = generator
+        self.count_of_characters = count_of_characters
 
     def table_generator(self):
         """
         This meyhod generating table
         """
+        self.restore_table()
         self.__adding_needed_features()
         self.__adding_random_features()
         self.__creating_characters()
@@ -48,16 +51,13 @@ class BunkerTable:
         """
         for i in range(len(self.__features_on_table)):
             if i == 1:
-                while len(self.__features_on_table[i]) < 10:
+                while len(self.__features_on_table[i]) < self.count_of_characters:
                     item = RandGenerator.choice(self.__professions)
                     self.__features_on_table[i].add(item)
             else:
-                try:
-                    while len(self.__features_on_table[i]) < 10:
-                        item = RandGenerator.choice(self.__features)
-                        self.__features_on_table[i].add(item)
-                except IndexError:
-                    pass
+                while len(self.__features_on_table[i]) < self.count_of_characters:
+                    item = RandGenerator.choice(self.__features)
+                    self.__features_on_table[i].add(item)
 
     def __transition_data_to_lists(self):
         """
@@ -66,12 +66,9 @@ class BunkerTable:
         features = [[], [], [], [], [], [], [], [], []]
         for i in range(len(features)):
             for a in range(len(self.__table)):
-                try:
-                    item = self.__features_on_table[i].pop()
-                    features[i].append(item)
-                    self.__features_on_table[i].discard(item)
-                except IndexError:
-                    pass
+                item = self.__features_on_table[i].pop()
+                features[i].append(item)
+                self.__features_on_table[i].discard(item)
         return features
 
     def __creating_characters(self):
@@ -79,21 +76,27 @@ class BunkerTable:
         This method creates characters from sets of features
         """
         features = self.__transition_data_to_lists()
-        for i in range(9):
-            for a in reversed(range(10)):
-                try:
-                    item = RandGenerator.choice(features[i])
-                    self.__table[a].append(item)
-                    features[i].remove(item)
-                except IndexError:
-                    pass
+        for i in range(len(self.__features_on_table)):
+            for a in reversed(range(len(self.__table))):
+                item = RandGenerator.choice(features[i])
+                self.__table[a].append(item)
+                features[i].remove(item)
 
     def restore_table(self):
         """
         This method clears lists of characteristics
         """
-        self.__features_on_table = [set(), set(), set(), set(), set(), set(), set(), set(), set()]
-        self.__table = [[], [], [], [], [], [], [], [], [], []]
+        length_features = len(self.__features_on_table)
+        length_table = self.count_of_characters
+
+        self.__features_on_table = []
+        self.__table = []
+
+        for i in range(length_features):
+            self.__features_on_table.append(set())
+
+        for i in range(length_table):
+            self.__table.append([])
 
     def pretty_output(self):
         """
@@ -108,7 +111,7 @@ class BunkerTable:
             character = ''
             character += f'Игрок {i + 1} Характеристики: \n'
 
-            for a in range(9):
+            for a in range(len(self.__features_on_table)):
                 if a != 0:
                     character += ',\n'
                     number_of_feature = int(table[i][a])

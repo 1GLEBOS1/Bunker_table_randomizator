@@ -87,5 +87,5 @@ class GeneratorBiologicalInformation:
         bio_info = ''
         bio_info += self.generate_gender_info()
         bio_info += ',\n'
-        bio_info += self.__generate_physic_info()
+        bio_info += self.generate_physic_info()
         return bio_info
