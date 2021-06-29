@@ -15,7 +15,7 @@ class BunkerTable:
     __professions = [i for i in range(0, 50)]
 
     # Lists for work with characteristics
-    __features_on_table = [set(), set(), set(), set(), set(), set(), set(), set()]
+    __features_on_table = [set(), set(), set(), set(), set(), set(), set(), set(), set()]
     __table = [[], [], [], [], [], [], [], [], [], []]
 
     def __init__(self, needed_features: list, all_features: list, generator=GeneratorBiologicalInformation()):
@@ -37,32 +37,41 @@ class BunkerTable:
         """
         for i in range(len(self.needed_features)):
             for a in range(len(self.needed_features[i])):
-                self.__features_on_table[i].add(self.needed_features[i][a])
+                try:
+                    self.__features_on_table[i].add(self.needed_features[i][a])
+                except IndexError:
+                    pass
 
     def __adding_random_features(self):
         """
         This method adds random features into sets of features
         """
-        for i in range(8):
+        for i in range(len(self.__features_on_table)):
             if i == 1:
                 while len(self.__features_on_table[i]) < 10:
                     item = RandGenerator.choice(self.__professions)
                     self.__features_on_table[i].add(item)
             else:
-                while len(self.__features_on_table[i]) < 10:
-                    item = RandGenerator.choice(self.__features)
-                    self.__features_on_table[i].add(item)
+                try:
+                    while len(self.__features_on_table[i]) < 10:
+                        item = RandGenerator.choice(self.__features)
+                        self.__features_on_table[i].add(item)
+                except IndexError:
+                    pass
 
     def __transition_data_to_lists(self):
         """
         This method transforms characteristics frpm sets to lists
         """
-        features = [[], [], [], [], [], [], [], []]
+        features = [[], [], [], [], [], [], [], [], []]
         for i in range(len(features)):
             for a in range(len(self.__table)):
-                item = self.__features_on_table[i].pop()
-                features[i].append(item)
-                self.__features_on_table[i].discard(item)
+                try:
+                    item = self.__features_on_table[i].pop()
+                    features[i].append(item)
+                    self.__features_on_table[i].discard(item)
+                except IndexError:
+                    pass
         return features
 
     def __creating_characters(self):
@@ -70,20 +79,20 @@ class BunkerTable:
         This method creates characters from sets of features
         """
         features = self.__transition_data_to_lists()
-        for i in range(8):
+        for i in range(9):
             for a in reversed(range(10)):
                 try:
                     item = RandGenerator.choice(features[i])
                     self.__table[a].append(item)
                     features[i].remove(item)
                 except IndexError:
-                    print('list index out of range')
+                    pass
 
     def restore_table(self):
         """
         This method clears lists of characteristics
         """
-        self.__features_on_table = [set(), set(), set(), set(), set(), set(), set(), set()]
+        self.__features_on_table = [set(), set(), set(), set(), set(), set(), set(), set(), set()]
         self.__table = [[], [], [], [], [], [], [], [], [], []]
 
     def pretty_output(self):
@@ -95,23 +104,18 @@ class BunkerTable:
         features = self.all_features
 
         output = ''
-
-        for i in range(10):
-
+        for i in range(len(table)):
             character = ''
             character += f'Игрок {i + 1} Характеристики: \n'
 
-            for a in range(8):
-
+            for a in range(9):
                 if a != 0:
-
-                    character += '\n'
-
+                    character += ',\n'
                     number_of_feature = int(table[i][a])
                     character += f'{features[a][number_of_feature]}'
 
                 else:
-                    character += self.generator.generate_biological_info()
+                    character += self.generator.generate_gender_info()
 
             character += '\n\n'
             output += character

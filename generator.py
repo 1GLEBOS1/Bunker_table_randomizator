@@ -54,7 +54,7 @@ class GeneratorBiologicalInformation:
         body_type = RandGenerator.choice(self.Body_type)
         return body_type
 
-    def __generate_gender_info(self):
+    def generate_gender_info(self):
         """
         This method generates full gender information for character
         """
@@ -70,7 +70,7 @@ class GeneratorBiologicalInformation:
 
         return info
 
-    def __generate_physic_info(self):
+    def generate_physic_info(self):
         """
         This method generates full physical information for character
         """
@@ -85,7 +85,7 @@ class GeneratorBiologicalInformation:
         This method returns full biological information
         """
         bio_info = ''
-        bio_info += self.__generate_gender_info()
-        bio_info += '\n'
+        bio_info += self.generate_gender_info()
+        bio_info += ',\n'
         bio_info += self.__generate_physic_info()
         return bio_info
