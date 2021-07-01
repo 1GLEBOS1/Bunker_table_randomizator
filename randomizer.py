@@ -15,7 +15,7 @@ class BunkerTable:
     __professions = [i for i in range(0, 50)]
 
     # Lists for work with characteristics
-    __features_on_table = [set(), set(), set(), set(), set(), set(), set(), set(), set()]
+    __features_on_table = [set(), set(), set(), set(), set(), set(), set(), set(), set(), set()]
     __table = [[], [], [], [], [], [], [], [], [], []]
 
     def __init__(self, needed_features: list, all_features: list, generator=GeneratorBiologicalInformation(),
@@ -54,7 +54,12 @@ class BunkerTable:
                 while len(self.__features_on_table[i]) < self.count_of_characters:
                     item = RandGenerator.choice(self.__professions)
                     self.__features_on_table[i].add(item)
-            else:
+            elif i == 10:
+                while len(self.__features_on_table[i]) < self.count_of_characters:
+                    item = RandGenerator.choice(self.__features)
+                    print(item, self.__features_on_table[i-1])
+                    self.__features_on_table[i].add(item)
+            elif i != 1 and i != 10:
                 while len(self.__features_on_table[i]) < self.count_of_characters:
                     item = RandGenerator.choice(self.__features)
                     self.__features_on_table[i].add(item)
@@ -63,7 +68,7 @@ class BunkerTable:
         """
         This method transforms characteristics frpm sets to lists
         """
-        features = [[], [], [], [], [], [], [], [], []]
+        features = [[], [], [], [], [], [], [], [], [], []]
         for i in range(len(features)):
             for a in range(len(self.__table)):
                 item = self.__features_on_table[i].pop()
@@ -112,11 +117,14 @@ class BunkerTable:
             character += f'Игрок {i + 1} Характеристики: \n'
 
             for a in range(len(self.__features_on_table)):
-                if a != 0:
+                if a != 0 and a != 9:
                     character += ',\n'
                     number_of_feature = int(table[i][a])
                     character += f'{features[a][number_of_feature]}'
-
+                elif a == 9:
+                    character += ',\n'
+                    number_of_feature = int(table[i-1][a])
+                    character += f'{features[a-1][number_of_feature]}'
                 else:
                     character += self.generator.generate_gender_info()
 
