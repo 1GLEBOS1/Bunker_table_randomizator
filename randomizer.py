@@ -125,7 +125,7 @@ class BunkerTable:
                     character += ',\n'
                     number_of_feature = int(table[i-1][a])
                     character += f'{features[a-1][number_of_feature]}'
-                else:
+                elif a == 0:
                     character += self.generator.generate_gender_info()
 
             character += '\n\n'
