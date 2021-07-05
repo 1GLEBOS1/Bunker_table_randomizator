@@ -11,8 +11,7 @@ class BunkerTable:
     """
 
     # Lists with indexes of characteristics
-    __features = [i for i in range(0, 30)]
-    __professions = [i for i in range(0, 50)]
+    __features = [i for i in range(0, 50)]
 
     # Lists for work with characteristics
     __features_on_table = [set(), set(), set(), set(), set(), set(), set(), set(), set(), set()]
@@ -50,16 +49,12 @@ class BunkerTable:
         This method adds random features into sets of features
         """
         for i in range(len(self.__features_on_table)):
-            if i == 1:
-                while len(self.__features_on_table[i]) < self.count_of_characters:
-                    item = RandGenerator.choice(self.__professions)
-                    self.__features_on_table[i].add(item)
-            elif i == 10:
+            if i == 10:
                 while len(self.__features_on_table[i]) < self.count_of_characters:
                     item = RandGenerator.choice(self.__features)
                     print(item, self.__features_on_table[i-1])
                     self.__features_on_table[i].add(item)
-            elif i != 1 and i != 10:
+            else:
                 while len(self.__features_on_table[i]) < self.count_of_characters:
                     item = RandGenerator.choice(self.__features)
                     self.__features_on_table[i].add(item)
