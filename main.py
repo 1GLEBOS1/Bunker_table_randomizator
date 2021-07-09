@@ -140,7 +140,7 @@ if is_generator:
 
         try:
             count_of_gamers = int(input('Количество игроков: '))
-            if count_of_gamers > 15:
+            if count_of_gamers > 17:
                 print('Слишком много игроков')
                 continue
             elif count_of_gamers < 1:
@@ -160,8 +160,7 @@ if is_generator:
             needed_features.append(items)
 
         # Creating instanse of Table Randomizator
-        Table = BunkerTable(needed_features=needed_features, all_features=all_features, generator=Generator,
-                            count_of_characters=count_of_gamers)
+        Table = BunkerTable(needed_characteristics=needed_features, all_characteristics=all_features, generator=Generator, count_of_characters=count_of_gamers)
 
         # Creating Table
         Table.get_table()
@@ -170,7 +169,7 @@ elif is_regenerator:
     file = input('Введите путь к файлу метаданных: ')
     number_of_characteristic = int(input('Введите номер характеристики: '))
     count_of_characteristics = int(input('Введите количество характеристик: '))
-    Re_generator = AddGenerator(link_to_file=file, number_of_feature=number_of_characteristic,
-                                count_of_features=count_of_characteristics, all_features=all_features,
+    Re_generator = AddGenerator(link_to_file=file, number_of_characteristic=number_of_characteristic,
+                                count_of_characteristics=count_of_characteristics, all_characteristics=all_features,
                                 gender_generator=Generator)
     Re_generator.output()
