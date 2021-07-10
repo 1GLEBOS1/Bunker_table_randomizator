@@ -121,6 +121,7 @@ Generator = GeneratorBiologicalInformation()
 is_generator = False
 is_regenerator = False
 
+# Choose generator mode
 MODE = input('Введите режим генератора: ')
 if MODE.lower() == '1':
     is_generator = True
@@ -129,6 +130,7 @@ elif MODE.lower() == '2':
 else:
     is_generator = True
 
+# Generator mode
 if is_generator:
     try:
         count_of_tables = int(input('Количество столов: '))
@@ -165,6 +167,7 @@ if is_generator:
         # Creating Table
         Table.get_table()
 
+# Re-generator mode
 elif is_regenerator:
     file = input('Введите путь к файлу метаданных: ')
     number_of_characteristic = int(input('Введите номер характеристики: '))

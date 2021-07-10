@@ -221,14 +221,14 @@ class BunkerTable:
         time = datetime.now()
 
         # Create file with a table
-        with open(f'/Users/sergeypolyakov/Desktop/Бункер/Table_{time}.txt', 'w') as file:
+        with open(f'Table_{time}.txt', 'w') as file:
             file.write(self.__pretty_table())
             file.close()
 
         print('Стол сгенерирован', end='; ')
 
         # Create file with a metadata
-        with open(f'/Users/sergeypolyakov/Desktop/Бункер/Table_Metadata_{time}.txt', 'w') as file:
+        with open(f'Table_Metadata_{time}.txt', 'w') as file:
             file.write(self.__metadata())
             file.close()
         print('Метаданные сгенерированны')
