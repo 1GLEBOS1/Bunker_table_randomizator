@@ -238,8 +238,9 @@ class BunkerTable:
 class AddGenerator(BunkerTable):
     """This class add-generating characteristics"""
 
-    def __init__(self, link_to_file: str, number_of_characteristic: int, count_of_characteristics: int, all_characteristics: list,
-                 gender_generator: GeneratorBiologicalInformation, needed_characteristics=[]):
+    def __init__(self, link_to_file: str, number_of_characteristic: int, count_of_characteristics: int,
+                 all_characteristics: list, gender_generator: GeneratorBiologicalInformation, needed_characteristics=[]
+                 ):
         super().__init__(needed_characteristics, all_characteristics)
         if needed_characteristics is None:
             needed_characteristics = []
@@ -338,7 +339,11 @@ class AddGenerator(BunkerTable):
         This method returns genereted characteristics
         """
         characteristics = self.__transition_data_to_list()
-        for i in characteristics:
-            print(i)
+        if self.number_of_characteristic != 0:
+            for i in characteristics:
+                print(self.all_characteristics[self.number_of_characteristic][i])
+        else:
+            for i in characteristics:
+                print(i)
 
         return characteristics
