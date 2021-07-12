@@ -69,7 +69,8 @@ class BunkerTable:
             elif i == 9:
                 while len(self.__characteristics_on_table[i]) < self.count_of_characters:
                     item = RandGenerator.choice(index_characteristics[i-1])
-                    self.__characteristics_on_table[i].add(item)
+                    if item not in self.__characteristics_on_table[i-1]:
+                        self.__characteristics_on_table[i].add(item)
 
     def __transition_data_to_lists(self):
         """
