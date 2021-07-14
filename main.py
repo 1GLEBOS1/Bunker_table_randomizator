@@ -171,6 +171,8 @@ if is_generator:
 # Re-generator mode
 elif is_regenerator:
     file = input('Введите путь к файлу метаданных: ')
+    print('\n0: Био\n1: Профессия\n2: Чел. черта\n3: Здоровье\n4: Хобби\n5: Фобия\n6: Доп. инфа\n7: Багаж\n'
+          '8: Спец. условие\n9: Спец. условие\n')
     number_of_characteristic = int(input('Введите номер характеристики: '))
     count_of_characteristics = int(input('Введите количество характеристик: '))
     Re_generator = AddGenerator(link_to_file=file, number_of_characteristic=number_of_characteristic,

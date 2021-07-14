@@ -12,7 +12,7 @@ class GeneratorBiologicalInformation:
 
     # Lists with generator variables
     Sex = ['Женщина', 'Мужчина']
-    Age = [[18, 49], [18, 49], [50, 90]]
+    Age = [[18, 49], [18, 49], [18, 49], [50, 90]]
     Is_childfree = ['', '', '', '', '', '', '', '', 'Чайлдфри', 'Чайлдфри']
     Height = [140, 210]
     Body_type = ['Худой/ая', 'Полный/ая', 'Атлетичный/ая']
