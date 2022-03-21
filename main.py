@@ -124,9 +124,7 @@ is_regenerator = False
 
 # Choose generator mode
 MODE = input('Введите режим генератора: ')
-if MODE == '0':
-    is_generator = True
-elif MODE == '1':
+if MODE == 'Regen':
     is_regenerator = True
 else:
     is_generator = True

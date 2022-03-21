@@ -2,6 +2,9 @@ import random
 from generator import GeneratorBiologicalInformation
 from datetime import datetime
 
+path = r'/Users/polyakov_gleb/Desktop/Бункер/'
+
+
 # Using Cryptographically Secure Pseudo Random Number Generator
 RandGenerator = random.SystemRandom()
 
@@ -28,7 +31,8 @@ class BunkerTable:
     __characteristics_on_table = [set(), set(), set(), set(), set(), set(), set(), set(), set(), set()]
     __table = [[], [], [], [], [], [], [], [], [], []]
 
-    def __init__(self, needed_characteristics: list, all_characteristics: list, generator=GeneratorBiologicalInformation(),
+    def __init__(self, needed_characteristics: list, all_characteristics: list,
+                 generator=GeneratorBiologicalInformation(),
                  count_of_characters: int = 10):
         self.needed_characteristics = needed_characteristics
         self.all_characteristics = all_characteristics
@@ -222,14 +226,14 @@ class BunkerTable:
         time = datetime.now()
 
         # Create file with a table
-        with open(f'/Users/sergeypolyakov/Desktop/Бункер/Table_{time}.txt', 'w') as file:
+        with open(path + f'Table_{time}.txt', 'w') as file:
             file.write(self.__pretty_table())
             file.close()
 
         print('Стол сгенерирован', end='; ')
 
         # Create file with a metadata
-        with open(f'/Users/sergeypolyakov/Desktop/Бункер/Table_Metadata_{time}.txt', 'w') as file:
+        with open(path + f'Table_Metadata_{time}.txt', 'w') as file:
             file.write(self.__metadata())
             file.close()
         print('Метаданные сгенерированны')
