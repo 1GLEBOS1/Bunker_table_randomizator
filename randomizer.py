@@ -1,5 +1,5 @@
 import random
-from generator import GeneratorBiologicalInformation
+from generator import GeneratorBiologicalInformation, GeneratorStory
 from datetime import datetime
 
 path = r'/Users/polyakov_gleb/Desktop/Бункер/'
@@ -32,11 +32,12 @@ class BunkerTable:
     __table = [[], [], [], [], [], [], [], [], [], []]
 
     def __init__(self, needed_characteristics: list, all_characteristics: list,
-                 generator=GeneratorBiologicalInformation(),
+                 generator=GeneratorBiologicalInformation(), story=GeneratorStory(),
                  count_of_characters: int = 10):
         self.needed_characteristics = needed_characteristics
         self.all_characteristics = all_characteristics
         self.generator = generator
+        self.story = story
         self.count_of_characters = count_of_characters
 
     def __table_randomizer(self):
@@ -125,8 +126,11 @@ class BunkerTable:
         self.__table_randomizer()
         table = self.__table
         characteristics = self.all_characteristics
+        story = self.__getstory()
 
         output = ''
+        output += story
+        output += '\n'
         for i in range(len(table)):
             character = ''
             character += f'Игрок {i + 1} Характеристики: \n'
@@ -216,6 +220,9 @@ class BunkerTable:
                 output += '\n'
 
         return output
+
+    def __getstory(self):
+        return self.story.get_story()
 
     def get_table(self):
         """

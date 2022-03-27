@@ -140,19 +140,19 @@ if is_generator:
     for i in range(count_of_tables):
 
         try:
-            count_of_gamers = int(input('Количество игроков: '))
-            if count_of_gamers > 17:
+            count_of_players = int(input('Количество игроков: '))
+            if count_of_players > 15:
                 print('Слишком много игроков')
                 continue
-            elif count_of_gamers < 1:
+            elif count_of_players < 1:
                 print('Слишком мало игроков')
                 continue
         except ValueError:
-            count_of_gamers = 10
+            count_of_players = 10
 
         needed_features = []
 
-        for a in range(9):
+        for a in range(count_of_players):
             items = str(input('Введите необходимые характеристики: '))
             if items != '':
                 items = items.split(' ')
@@ -161,7 +161,8 @@ if is_generator:
             needed_features.append(items)
 
         # Creating instanse of Table Randomizator
-        Table = BunkerTable(needed_characteristics=needed_features, all_characteristics=all_features, generator=Generator, count_of_characters=count_of_gamers)
+        Table = BunkerTable(needed_characteristics=needed_features, all_characteristics=all_features, 
+                            generator=Generator, count_of_characters=count_of_players)
 
         # Creating Table
         Table.get_table()

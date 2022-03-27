@@ -89,3 +89,33 @@ class GeneratorBiologicalInformation:
         bio_info += ',\n'
         bio_info += self.generate_physic_info()
         return bio_info
+
+
+class GeneratorStory:
+
+    def __init__(self):
+        pass
+
+    def __gen_story(self):
+        catastrophe = RandGenerator.choice(['Ядерная зима', 'Эпидемия', 'Восстание ИИ', 'Зомби-апокалипсис',
+                                            'Нашествие инопланетян', 'Атака террористов', 'Паление метиорита'])
+        bunker_is_needed = RandGenerator.randint(6, 60)
+
+        if bunker_is_needed <= 18:
+            destruction_percents = RandGenerator.randint(5, 35)
+        elif bunker_is_needed >= 42:
+            destruction_percents = RandGenerator.randint(65, 95)
+        else:
+            destruction_percents = RandGenerator.randint(35, 65)
+
+        biosphere_percents = destruction_percents + RandGenerator.randint(-5, 5)
+        return catastrophe, bunker_is_needed, destruction_percents, biosphere_percents
+
+    def get_story(self):
+        catastrophe, bunker_is_needed, destruction_percents, biosphere_percents = self.__gen_story()
+        output = ''
+        output += f'Катастрофа: {catastrophe},\n'
+        output += f'Длительность пребывания в бункере: {bunker_is_needed} месяцев,\n'
+        output += f'Разрушения: {destruction_percents}%,\n'
+        output += f'Биосфера: {100 - biosphere_percents}%\n'
+        return output
